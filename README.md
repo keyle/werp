@@ -17,7 +17,7 @@ progress
 
 - [x] function declaration
 - [x] read files
-- [ ] run -x `code`
+- [ ] handle argv -x `(>> hello)`
 - [ ] std lib python imports
-- [ ] string handling "bla" instead of (` bla)
-- [ ] comments handing (-- line comment)
+- [ ] string handling `"bla"` instead of `(` bla)`
+- [ ] comments handing `-- line comment`
