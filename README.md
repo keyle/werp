@@ -12,3 +12,12 @@ the name comes from the ease of typing `werp`
 )
 ```
 `Hello World`
+
+progress
+
+- [x] function declaration
+- [x] read files
+- [ ] run -x `code`
+- [ ] std lib python imports
+- [ ] string handling "bla" instead of (` bla)
+- [ ] comments handing (-- line comment)
