@@ -1,0 +1,6 @@
+(>> 
+	(var x (` Hello))
+	(import (` time))
+	(time.process_time)
+)
+

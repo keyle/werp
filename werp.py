@@ -32,10 +32,17 @@ class Env(dict):
 		self.update(zip(params, args))
 		self.outer = outer
 	def find(self, var):
-		return self if (var in self) else self.outer.find(var)
+		if (var in self):
+			return self
+		else: 
+			try: return self.outer.find(var)
+			except StandardError, e:
+				print "ERROR, undefined:", var
+				sys.exit()
 
 def standard_env():
 	import math, operator as op
+	import importlib
 	env = Env()
 	env.update(vars(math)) # sin, cos, etc.
 	env.update({
@@ -62,6 +69,7 @@ def standard_env():
 		'procedure?':callable,
 		'space':	' ',
 		'round':	round,
+		'import':	lambda x: importlib.import_module,
 		'symbol?': 	lambda x: isinstance(x, Symbol)
 		})
 	return env
@@ -89,7 +97,7 @@ def eval(x, env = global_env):
 	elif x[0] == 'var':
 		(_, _var, exp) = x
 		env[_var] = eval(exp, env)
-	elif x[0] == 'lambda':
+	elif x[0] == 'fun':
 		(_, params, body) = x
 		return Procedure(params, body, env)
 	else:
@@ -98,6 +106,24 @@ def eval(x, env = global_env):
 		return proc(*args)
 
 run = lambda prg: eval(parse(prg))
+
+import sys
+
+def tryReadFile():
+	if len(sys.argv) == 2:
+		script, filename = sys.argv
+
+		try: fh = open(filename, "r")
+		except IOError:
+			print "invalid filename"
+			sys.exit()
+
+		contents = fh.read()
+		fh.close()
+		print run(contents)
+		sys.exit()	
+
+tryReadFile()
 
 print run("(>> (var r 10) (* pi (* r r)))") # 314.159265359
 print run("(if (> (* 11 11) 120) (* 7 6) (` oops))") # 42
@@ -120,10 +146,8 @@ print run("""
 print run("""
 
 	(>> 
-		(var twice (lambda (x) (* 2 x)))
+		(var twice (fun (x) (* x 2)))
 		(twice 21)
 	)
 
 	""")
-
-
