@@ -13,10 +13,10 @@ the name comes from the ease of typing `werp`
 ```
 `Hello World`
 
-progress
+---
 
 - [x] function declaration
-- [x] read files
+- [x] run code from .wrp file
 - [ ] handle argv -x `(>> hello)`
 - [ ] std lib python imports
 - [ ] string handling `"bla"` instead of `(` bla)`
